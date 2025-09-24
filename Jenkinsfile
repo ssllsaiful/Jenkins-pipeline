@@ -7,7 +7,7 @@ pipeline {
     }
 
     environment {
-        DOCKER_IMAGE_PREFIX = 'dockerhubrepo-name/prod_ajpfrontend'
+        DOCKER_IMAGE_PREFIX = 'dockerhubrepo-name/imagename'
         DOCKERHUB_CREDENTIALS_USR = credentials('dockerhub-username-hub')
         DOCKERHUB_CREDENTIALS_PSW = credentials('dockerhub-password-hub')
         AWS_REGION = 'us-west-2'  // Change this to your AWS region
@@ -35,7 +35,7 @@ pipeline {
                 script {
                     try {
                         sh """
-                        docker run -d --rm --name prod_ajpfrontend_Test_container -p 1000:3000 ${env.DOCKER_IMAGE_PREFIX}:${params.APP_VERSION}
+                        docker run -d --rm --name Test_container -p 1000:3000 ${env.DOCKER_IMAGE_PREFIX}:${params.APP_VERSION}
                         sleep 10
                         STATUS=\$(curl -s -o /dev/null -w "%{http_code}" http://localhost:1000 || echo "000")
                         docker stop container_name || true
